@@ -1,0 +1,30 @@
+From: Your Name <your.email@example.com>
+Date: Sat, 22 May 2024 15:52:56 +0000
+Subject: [PATCH] Enable i2c in am335x-bonegreen.dts
+
+Upstream-Status: Inappropriate [local configuration]
+---
+diff --git a/am335x-bonegreen.orig.dts b/am335x-bonegreen.dts
+index ab7fc30..1077e8b 100644
+--- a/arch/arm/boot/dts/ti/omap/am335x-bonegreen.dts
++++ b/arch/arm/boot/dts/ti/omap/am335x-bonegreen.dts
+@@ -11,4 +11,18 @@
+ / {
+ 	model = "TI AM335x BeagleBone Green";
+ 	compatible = "ti,am335x-bone-green", "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
++};
++
++&i2c2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c2_pins>;
++	status = "okay";
++	clock-frequency = <100000>;
++
++	dibeeprom: eeprom@50 {
++		compatible = "at24,myOwn24c256";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		reg = <0x50>;
++	};
+ };
+\ No newline at end of file
